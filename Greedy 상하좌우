@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+// 이것이 코딩테스트다 p110 상하좌우
+void solution(int n, string str) {
+    int first = 1, second = 1;
+    for (auto& strIter : str) {
+        if (strIter == 'L' && second > 1)
+            --second;
+        else if (strIter == 'R' && second < n)
+            ++second;
+        else if (strIter == 'U' && first > 1)
+            --first;
+        else if (strIter == 'D' && first < n)
+            ++first;
+    }
+    cout << first << " " << second;
+}
+
+
+// =========================================
+
+int main()
+{
+    // 입력
+    int n = 0;
+    cin >> n;
+    cin.ignore();
+    string str;
+    getline(cin, str);
+
+    // 시간 측정 시작
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    // 솔루션 제시
+    solution(n, str);
+
+    // // 시간 측정 끝
+
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
