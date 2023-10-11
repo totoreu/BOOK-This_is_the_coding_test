@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// 이것이 코딩테스트다 p96 숫자 카드 게임
+int solution(int n, int k) {
+    int result = 0;
+    while (n != 1) {
+        ++result;
+        n = n % k == 0 ? n / k : n - 1;
+    }
+    return result;
+}
+
+
+// =========================================
+
+int main()
+{
+    // 입력
+    int n = 0, k = 0;
+    cin >> n >> k;
+
+    // 시간 측정 시작
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    // 솔루션 제시
+    cout << solution(n, k);
+
+    // // 시간 측정 끝
+
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
