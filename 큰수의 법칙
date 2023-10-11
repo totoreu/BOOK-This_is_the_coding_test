@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// 이것이 코딩테스트다 p92 큰수의 법칙
+int solution(vector<int> condition, vector<int> numbers) {
+    int result = 0;
+    int num = condition[0];
+    int addMax = condition[1];
+    int overlap = condition[2];
+
+    int a = addMax / overlap;
+
+    sort(numbers.begin(), numbers.end());
+    int first = numbers[num - 1];
+    int second = numbers[num - 2];
+
+    result += first * overlap * a;
+    result += second * (addMax - (overlap * a));
+
+    return result;
+}
+
+
+// =========================================
+
+int main()
+{
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    cout << solution({5, 8, 3}, {2, 4, 5, 4, 6});
+
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
