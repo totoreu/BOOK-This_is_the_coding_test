@@ -1,0 +1,93 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+/*
+처음엔 완전탐색인줄 알았으나, 지문을 자세히 살펴보니 특정조건에 맞아 떨어지면 탐색을 종료하도록 명시되어 있었다.
+그러므로 밑의 테스트 케이스에선 육지 갯수 8개가 아닌 7개가 나와야한다.
+추가 테스트 케이스
+5 6
+1 1 0
+1 1 1 1 1 1
+1 0 1 1 0 1
+1 0 0 0 0 1
+1 0 1 0 1 1
+1 1 1 1 1 1
+*/
+
+// 0 북, 1 동, 2 남, 3, 서
+vector<pair<int, int>> vTurn = { {-1,0}, {0, 1},{1, 0}, {0, -1} };
+int Turn(int& direction) {
+    --direction;
+    if (direction == -1)
+        direction = 3;
+    else if (direction == -2)
+        direction = 2;
+    return direction;
+}
+
+// 이것이 코딩테스트다 p118 게임 개발
+int solution(int x, int y, int direction, vector<vector<int>> vMap) {
+    int count = 1;
+    int countTurn = 0;
+    vMap[x][y] = 2;
+    while (true) {
+        int dirX = x + vTurn[direction].first;
+        int dirY = y + vTurn[direction].second;
+        if (countTurn == 4) {
+            --direction;
+            Turn(direction);
+            x = x + vTurn[direction].first; 
+            y = y + vTurn[direction].second;
+            if (vMap[x][y] == 1)
+                break;
+            --direction;
+            Turn(direction);
+            countTurn = 0;
+        }
+        else if (vMap[dirX][dirY] == 0) {
+            x = dirX, y = dirY;
+            vMap[x][y] = 2;
+            countTurn = 0;
+            ++count;
+        }
+        else if (vMap[dirX][dirY] > 0) {
+            Turn(direction);
+            ++countTurn;
+        }
+    }
+
+    return count;
+}
+
+int main()
+{
+    // 입력
+    int n = 0, m = 0;
+    cin >> n >> m;
+    int x = 0, y = 0, direction = 0;
+    cin >> x >> y >> direction;
+    vector<vector<int>> vMap(n, vector<int>(m));
+    for (auto& mapIt : vMap) {
+        for (auto& iter : mapIt) {
+            cin >> iter;
+        }
+    }
+
+    // 시간 측정 시작
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    // 솔루션 제시
+    cout << solution(x, y, direction, vMap);
+
+    // // 시간 측정 끝
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
