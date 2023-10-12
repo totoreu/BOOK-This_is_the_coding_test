@@ -16,7 +16,6 @@ bool checkRange(int x, int y, int n, int m) {
 
 void bfs(vector<string>& vMap, int x, int y, int n, int m, int add) {
     add++;
-    int nAdd = add;
     vMap[x][y] += nAdd;
     for (int i = 0; i < 4; ++i) {
         int dirX = x + dx[i];
