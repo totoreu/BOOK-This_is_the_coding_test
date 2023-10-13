@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// 이것이 코딩테스트다 p148 음료수 얼려 먹기
+// 이것이 코딩테스트다 p149 음료수 얼려 먹기
 
 // 상 하 좌 우
 const int dx[] = { -1, 1, 0, 0 };
@@ -15,29 +15,32 @@ bool checkRange(int x, int y, int n, int m) {
     return x >= 0 && y >= 0 && x < n && y < m;
 }
 
-void dfs(vector<string>& vMap, int x, int y, int& count, stack<pair<int, int>>& s) {
-    s.push({ x,y });
-    int n = vMap.size();
-    int m = vMap[0].size();
-    vMap[x][y] = '1';
-    for (int i = 0; i < 4; ++i) {
-        int dirX = x + dx[i];
-        int dirY = y + dy[i];
-        if (checkRange(dirX, dirY, n, m) && vMap[dirX][dirY] == '0')
-            dfs(vMap, dirX, dirY, count, s);
-    }
-    s.pop();
-    if (s.empty())
-        count++;
-}
-
 int solution(vector<string>& vMap, int n, int m) {
-    stack<pair<int, int>> s;
     int count = 0;
-    for (int x = 0; x < n; ++x)
-        for (int y = 0; y < m; ++y)
-            if (vMap[x][y] == '0')
-                dfs(vMap, x, y, count, s);
+    for (int x = 0; x < n; ++x) {
+        for (int y = 0; y < m; ++y) {
+            if (vMap[x][y] == '0') {
+                vMap[x][y] = '1';
+                stack<pair<int, int>> s;
+                s.push({ x, y });
+                while (!s.empty()) {
+                    pair<int, int> sCurrent = s.top();
+                    s.pop();
+                    int sx = sCurrent.first;
+                    int sy = sCurrent.second;
+                    for (int i = 0; i < 4; ++i) {
+                        int dirX = sx + dx[i];
+                        int dirY = sy + dy[i];
+                        if (checkRange(dirX, dirY, n, m) && vMap[dirX][dirY] == '0') {
+                            vMap[dirX][dirY] = '1';
+                            s.push({ dirX, dirY });
+                        }
+                    }
+                }
+                count++;
+            }
+        }
+    }
     return count;
 }
 
