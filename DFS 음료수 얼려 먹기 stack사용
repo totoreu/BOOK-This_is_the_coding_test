@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+// 이것이 코딩테스트다 p148 음료수 얼려 먹기
+
+// 상 하 좌 우
+const int dx[] = { -1, 1, 0, 0 };
+const int dy[] = { 0, 0, -1, 1 };
+
+bool checkRange(int x, int y, int n, int m) {
+    return x >= 0 && y >= 0 && x < n && y < m;
+}
+
+void dfs(vector<string>& vMap, int x, int y, int& count, stack<pair<int, int>>& s) {
+    s.push({ x,y });
+    int n = vMap.size();
+    int m = vMap[0].size();
+    vMap[x][y] = '1';
+    for (int i = 0; i < 4; ++i) {
+        int dirX = x + dx[i];
+        int dirY = y + dy[i];
+        if (checkRange(dirX, dirY, n, m) && vMap[dirX][dirY] == '0')
+            dfs(vMap, dirX, dirY, count, s);
+    }
+    s.pop();
+    if (s.empty())
+        count++;
+}
+
+int solution(vector<string>& vMap, int n, int m) {
+    stack<pair<int, int>> s;
+    int count = 0;
+    for (int x = 0; x < n; ++x)
+        for (int y = 0; y < m; ++y)
+            if (vMap[x][y] == '0')
+                dfs(vMap, x, y, count, s);
+    return count;
+}
+
+int main()
+{
+    // 입력
+    int n = 0, m = 0;
+    cin >> n >> m;
+    vector<string> vMap(n);
+    for (auto& mapIt : vMap) {
+        cin >> mapIt;
+    }
+
+    // 시간 측정 시작
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    // 솔루션 제시
+    cout << solution(vMap, n, m);
+
+
+    // // 시간 측정 끝
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
+
+/*
+추가 테스트 케이스
+
+4 5
+00110
+00011
+11111
+00000
+
+15 14
+00000111100000
+11111101111110
+11011101101110
+11011101100000
+11011111111111
+11011111111100
+11000000011111
+01111111111111
+00000000011111
+01111111111000
+00011111111000
+00000001111000
+11111111110011
+11100011111111
+11100011111111
+*/
