@@ -1,0 +1,50 @@
+#include <iostream>#include <iostream>
+#include <vector>#include <vector>
+#include <algorithm>#include <algorithm>
+
+using namespace std;네임스페이스 std 사용;
+
+// 이것이 코딩테스트다 p96 숫자 카드 게임// 이것이 코딩테스트다 p96 숫자 카드 게임
+int solution(vector<vector<int>> v) {int 용액(vector<vector<int> v) {
+    vector<int> vNum;벡터<int> vNum;
+    for (auto& vIt : v) {(auto&vIt : v) {
+        vNum.push_back(*min_element(vIt.begin(), vIt.end()));vNum.push_back(*min_element(vIt.begin()), vIt.end());
+    }}
+    return *max_element(vNum.begin(), vNum.end());*max_element를 반환합니다(vNum.begin()), vNum.end());
+}}
+
+
+// =========================================// =========================================
+
+int main()본심의
+{{
+    // 입력// 입력
+    int row = 0, col = 0;행 = 0, col = 0;
+    cin >> row >> col;cin >> 행 >> col;
+    // 행과 열만큼 2차원 배열 생성// 행과 열만큼 2차원 배열 생성
+    vector<vector<int>> v(row, vector<int>(col));vector<vector<int>> v(행, vector<int>(col));
+    for (auto& vIt : v) {(auto&vIt : v) {
+        for (auto& arrIt : vIt) {(auto&arrit : vIt) {
+            int num = 0;int num = 0;
+            cin >> num;cin >> num;
+            arrIt = num;arrit = num;
+        }}
+    }}
+
+    // 시간 측정 시작// 시간 측정 시작
+    clock_t start, finish;clock_t 시작, 끝;
+    double duration;이중 지속 시간;
+
+    start = clock();
+
+    // 정답
+    cout << solution(v);
+
+    // // 시간 측정 끝
+
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
