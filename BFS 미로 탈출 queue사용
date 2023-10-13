@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+// 상 하 좌 우
+const int dx[] = { -1, 1, 0, 0 };
+const int dy[] = { 0, 0, -1, 1 };
+
+bool checkRange(int x, int y, int n, int m) {
+    return x >= 0 && y >= 0 && x < n && y < m;
+}
+
+int solution(vector<string>& vMap, int n, int m) {
+    queue<pair<int, int>> q;
+    q.push({ 0, 0 });
+    vMap[0][0] = '2';
+
+    while (!q.empty()) {
+        pair<int, int> curr = q.front();
+        q.pop();
+        int x = curr.first;
+        int y = curr.second;
+
+        for (int i = 0; i < 4; ++i) {
+            int dirX = x + dx[i];
+            int dirY = y + dy[i];
+            if (checkRange(dirX, dirY, n, m) && vMap[dirX][dirY] == '1') {
+                q.push({ dirX, dirY });
+                vMap[dirX][dirY] = vMap[x][y] + 1;
+            }
+        }
+    }
+
+    return vMap[n - 1][m - 1] - '1';
+}
+
+int main() {
+    // 입력
+    int n = 0, m = 0;
+    cin >> n >> m;
+    vector<string> vMap(n);
+    for (auto& mapIt : vMap) {
+        cin >> mapIt;
+    }
+
+    // 시간 측정 시작
+    clock_t start, finish;
+    double duration;
+
+    start = clock();
+
+    // 솔루션 제시
+   cout << solution(vMap, n, m);
+
+    // 시간 측정 끝
+    finish = clock();
+
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
+
+/*
+추가 테스트 케이스
+
+5 6
+101010
+111111
+000001
+111111
+111111
+
+10 10
+1111111111
+0000000001
+1111111111
+1000000010
+1111100010
+0000100110
+0011101100
+0110011000
+1100010000
+1111011111
+*/
