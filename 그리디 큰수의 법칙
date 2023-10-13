@@ -1,43 +1,43 @@
-#include <iostream>#include <iostream>
-#include <vector>#include <vector>
-#include <algorithm>#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-using namespace std;네임스페이스 std 사용;
+using namespace std;
 
-// 이것이 코딩테스트다 p92 큰수의 법칙// 이것이 코딩테스트다 p92 큰수의 법칙
-int solution(vector<int> condition, vector<int> numbers) {int 용액( vector<int> 조건, 벡터<int> 숫자) {
-    int result = 0;int 결과 = 0;
-    int num = condition[0];int num = 조건[0];
-    int addMax = condition[1];int addMax = 조건[1];
-    int overlap = condition[2];intoverlap = 조건[2];
+// 이것이 코딩테스트다 p92 큰수의 법칙
+int solution(vector<int> condition, vector<int> numbers) {
+    int result = 0;
+    int num = condition[0];
+    int addMax = condition[1];
+    int overlap = condition[2];
 
-    int a = addMax / overlap;inta = addMax / overlap;
+    int a = addMax / overlap;
 
-    sort(numbers.begin(), numbers.end());정렬(numbers.begin(), 번호.끝 ());
-    int first = numbers[num - 1];int 첫번째 = 숫자 [num - 1];
-    int second = numbers[num - 2];int second = 숫자[num - 2];
+    sort(numbers.begin(), numbers.end());
+    int first = numbers[num - 1];
+    int second = numbers[num - 2];
 
-    result += first * overlap * a;결과 += 첫 번째 * 겹침 * a;
-    result += second * (addMax - (overlap * a));결과 += 초 * (addMax - (overlap * a));
+    result += first * overlap * a;
+    result += second * (addMax - (overlap * a));
 
-    return result;반환 결과
-}}
+    return result;
+}
 
 
-// =========================================// =========================================
+// =========================================
 
-int main()본심의
-{{
-    clock_t start, finish;clock_t 시작, 끝;
-    double duration;이중 지속 시간;
+int main()
+{
+    clock_t start, finish;
+    double duration;
 
-    start = clock();start = 시계 ();
+    start = clock();
 
-    cout << solution({5, 8, 3}, {2, 4, 5, 4, 6});cout << 솔루션 ({5, 8, 3}, {2, 4, 5, 4, 6});
+    cout << solution({5, 8, 3}, {2, 4, 5, 4, 6});
 
-    finish = clock();마무리 = 시계 ();finish = 클럭 (); 마무리  = 시계();
+    finish = clock();
 
-    duration = (double)(finish - start) / CLOCKS_PER_SEC;지속 시간 = (두 배) (finish - 시작) / CLOCKS_PER_SEC;지속 시간 = (두 배) (finish - 시작) / CLOCKS_PER_SEC; 지속 시간 = (두 배) (finish - 시작) / CLOCKS_PER_SEC;
-    cout << "\n" << duration << "초" << endl;cout << "\n" << "초" << endl;cout << "\n" << " 초" << endl; cout << "\n" << "\n" << " 초 << endl;
-    return 0;0을 반환합니다.return 0;0을 반환합니다.
-}}}}
+    duration = (double)(finish - start) / CLOCKS_PER_SEC;
+    cout << "\n" << duration << "초" << endl;
+    return 0;
+}
