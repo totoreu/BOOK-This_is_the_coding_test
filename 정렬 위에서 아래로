@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void solution(int n, vector<int> arr) {
+void solution(vector<int> arr) {
     sort(arr.begin(), arr.end());
     for (int i = arr.size() - 1; i >= 0; --i)
         cout << arr[i] << "\n";
@@ -19,7 +19,7 @@ int main() {
     for (auto& num : arr)
         cin >> num;
 
-    solution(n, arr);
+    solution(arr);
 
     return 0;
 }
