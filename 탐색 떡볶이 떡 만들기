@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int binarySearch(vector<int> arr,int target, int left, int right) {
+    if (left <= right) {
+        int mid = left + (right - left) / 2;
+        int sum = 0;
+        for (auto num : arr) {
+            if (sum > target)
+                break;
+            if (num - mid > 0)
+                sum += num - mid;
+        }
+        if (target == sum)
+            return mid;
+        else if (target < sum)
+            return binarySearch(arr, target, mid + 1, right);
+        else if (target > sum)
+            return binarySearch(arr, target, left, mid - 1);
+    }
+    return -1;
+}
+
+int solution(vector<int> dducks, int target) {
+    int maxNum = *max_element(dducks.begin(), dducks.end());
+    return binarySearch(dducks, target, 0, maxNum);
+}
+
+int main() {
+    int n = 0, target = 0;
+    cin >> n >> target;
+    vector<int> dducks(n, 0);
+    for (auto& dduck : dducks)
+        cin >> dduck;
+
+    cout << solution(dducks, target);
+
+    return 0;
+}
